@@ -21,7 +21,7 @@ export default defineConfig({
     ['list'],
     ['html', { outputFolder: 'reports/html-report', open: 'never' }],
     ['json', { outputFile: 'observability/reporters/playwright-results.json' }],
-    ['allure-playwright', { outputFolder: 'reports/allure-results' }]
+    ['allure-playwright', { resultsDir: 'reports/allure-results' }]
   ],
   outputDir: 'test-results',
   use: {

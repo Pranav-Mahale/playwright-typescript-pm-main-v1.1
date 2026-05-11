@@ -1,6 +1,6 @@
 # Enterprise Playwright Automation Execution Report
 
-Generated: 2026-05-11T15:10:35.741Z
+Generated: 2026-05-11T15:25:07.355Z
 
 ## 1. Executive Summary
 
@@ -32,7 +32,7 @@ Generated: 2026-05-11T15:10:35.741Z
 | Failed | 0 |
 | Skipped | 0 |
 | Retry attempts | 0 |
-| Average duration | 3257 ms |
+| Average duration | 3786 ms |
 | Stability score | 100% |
 
 Browser-wise details are available in `observability/metrics/test-run-metrics.json`, the HTML report, and Allure results.

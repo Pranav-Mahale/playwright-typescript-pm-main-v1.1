@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-11T15:09:02.503Z",
+  "generatedAt": "2026-05-11T15:25:07.257Z",
   "externalHealerStatus": "playwright-test-healer is not installed or not available on PATH. Local heuristic analysis was generated instead.",
   "findings": [
     {
