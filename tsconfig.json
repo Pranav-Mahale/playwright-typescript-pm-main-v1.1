@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "types": ["node", "@playwright/test"],
+    "baseUrl": ".",
+    "paths": {
+      "@ai/*": ["ai/*"],
+      "@api-clients/*": ["api-clients/*"],
+      "@capabilities/*": ["capabilities/*"],
+      "@config/*": ["config/*"],
+      "@core/*": ["core/*"],
+      "@data/*": ["data/*"],
+      "@domains/*": ["domains/*"],
+      "@pages/*": ["pages/*"],
+      "@services/*": ["services/*"]
+    },
+    "outDir": "dist"
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "dist", "reports", "test-results"]
+}

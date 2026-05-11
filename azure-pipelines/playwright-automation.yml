@@ -1,0 +1,61 @@
+trigger:
+  branches:
+    include:
+      - main
+      - master
+
+pr:
+  branches:
+    include:
+      - main
+      - master
+
+pool:
+  vmImage: ubuntu-latest
+
+strategy:
+  matrix:
+    chromium:
+      BROWSER: chromium
+    firefox:
+      BROWSER: firefox
+    webkit:
+      BROWSER: webkit
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '22.x'
+    displayName: Install Node.js
+
+  - script: npm ci
+    displayName: Install dependencies
+
+  - script: npx playwright install --with-deps
+    displayName: Install Playwright browsers
+
+  - script: npx playwright test --project=$(BROWSER)
+    displayName: Run Playwright tests
+    env:
+      TEST_ENV: qa
+      HEADLESS: true
+
+  - script: npm run heal
+    displayName: Generate healing report
+    condition: always()
+
+  - script: npm run report:summary
+    displayName: Generate final report
+    condition: always()
+
+  - task: PublishPipelineArtifact@1
+    condition: always()
+    inputs:
+      targetPath: 'reports'
+      artifact: 'reports-$(BROWSER)'
+
+  - task: PublishPipelineArtifact@1
+    condition: always()
+    inputs:
+      targetPath: 'observability'
+      artifact: 'observability-$(BROWSER)'

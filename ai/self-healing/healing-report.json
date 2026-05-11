@@ -1,0 +1,11 @@
+{
+  "generatedAt": "2026-05-11T15:09:02.503Z",
+  "externalHealerStatus": "playwright-test-healer is not installed or not available on PATH. Local heuristic analysis was generated instead.",
+  "findings": [
+    {
+      "title": "No failures detected",
+      "rootCause": "Latest available result file does not show failed tests.",
+      "recommendation": "Keep trace retain-on-failure enabled and review flaky retries in CI."
+    }
+  ]
+}

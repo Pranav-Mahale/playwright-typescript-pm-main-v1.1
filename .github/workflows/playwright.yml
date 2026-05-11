@@ -1,0 +1,63 @@
+name: Playwright Enterprise Tests
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+    inputs:
+      test_env:
+        description: Test environment
+        default: qa
+        required: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Execute Playwright tests
+        run: npx playwright test --project=${{ matrix.browser }}
+        env:
+          TEST_ENV: ${{ github.event.inputs.test_env || 'qa' }}
+          HEADLESS: true
+
+      - name: Generate healing report
+        if: always()
+        run: npm run heal
+
+      - name: Generate final markdown report
+        if: always()
+        run: npm run report:summary
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts-${{ matrix.browser }}
+          path: |
+            reports/
+            test-results/
+            observability/
+            ai/self-healing/healing-report.json
